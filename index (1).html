@@ -649,7 +649,6 @@ function buildPopupHtml(f) {
     return `<div class="emp">
       <div class="nm">${escapeHtml(e.name) || '—'}</div>
       ${e.title ? `<div class="role">${escapeHtml(e.title)}</div>` : ''}
-      ${e.department ? `<div class="role">${escapeHtml(e.department)}</div>` : ''}
       <div class="det">${det.join(' · ')}</div>
     </div>`;
   }).join('');
