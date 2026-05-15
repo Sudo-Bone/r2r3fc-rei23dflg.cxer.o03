@@ -412,7 +412,7 @@
         <button class="btn btn-ghost" id="reset-data" title="Reload from Google Sheet">↺ Reload Sheet</button>
       </div>
       <input type="file" id="file-input" accept=".xlsx,.xls,.csv,.json">
-      <div class="hint">Accepts <strong>.xlsx</strong>, <strong>.csv</strong>, or <strong>.json</strong>. For spreadsheets, columns needed: Name, Title, Department, Work Email, City, State, ZIP, Hire Date. Optional: Location Code, Position Status.</div>
+      <div class="hint">Accepts <strong>.xlsx</strong>, <strong>.csv</strong>, or <strong>.json</strong>. For spreadsheets, columns needed: Name, Title, City, State, ZIP, Hire Date. Optional: Location Code, Position Status.</div>
       <div id="upload-status"></div>
     </div>
 
@@ -1110,9 +1110,7 @@ function normalizeRow(row) {
   return {
     name: combinedName || singleName,
     title: pick('title', 'jobtitle', 'position', 'job'),
-    department: pick('department', 'dept', 'homedepartment'),
     business_unit: pick('businessunit', 'bu'),
-    work_email: pick('workemail', 'email', 'emailaddress'),
     location_code: pick('locationcode', 'location', 'office'),
     city: pick('city', 'residencecity', 'hometowncity', 'primaryaddresscity'),
     state: pick('state', 'residencestate', 'province', 'stateprovince',
