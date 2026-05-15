@@ -412,7 +412,7 @@
         <button class="btn btn-ghost" id="reset-data" title="Reload from Google Sheet">↺ Reload Sheet</button>
       </div>
       <input type="file" id="file-input" accept=".xlsx,.xls,.csv,.json">
-      <div class="hint">Accepts <strong>.xlsx</strong>, <strong>.csv</strong>, or <strong>.json</strong>. For spreadsheets, columns needed: Name, Title, Department, City, State, ZIP, Reports To Name. Optional: Location Code, Position Status.</div>
+      <div class="hint">Accepts <strong>.xlsx</strong>, <strong>.csv</strong>, or <strong>.json</strong>. For spreadsheets, columns needed: Name, Title, City, State, ZIP, Hire Date. Optional: Position Status.</div>
       <div id="upload-status"></div>
     </div>
 
@@ -645,10 +645,10 @@ function buildPopupHtml(f) {
     const det = [];
     if (e.location_code) det.push('Office: ' + escapeHtml(e.location_code));
     if (e.hire_date) det.push('Hired: ' + escapeHtml(e.hire_date));
+    if (e.work_email) det.push(`<a href="mailto:${escapeHtml(e.work_email)}">${escapeHtml(e.work_email)}</a>`);
     return `<div class="emp">
       <div class="nm">${escapeHtml(e.name) || '—'}</div>
       ${e.title ? `<div class="role">${escapeHtml(e.title)}</div>` : ''}
-      ${e.department ? `<div class="role">${escapeHtml(e.department)}</div>` : ''}
       <div class="det">${det.join(' · ')}</div>
     </div>`;
   }).join('');
@@ -1109,9 +1109,7 @@ function normalizeRow(row) {
   return {
     name: combinedName || singleName,
     title: pick('title', 'jobtitle', 'position', 'job'),
-    department: pick('department', 'dept', 'homedepartment'),
     business_unit: pick('businessunit', 'bu'),
-    location_code: pick('locationcode', 'location', 'office'),
     city: pick('city', 'residencecity', 'hometowncity', 'primaryaddresscity'),
     state: pick('state', 'residencestate', 'province', 'stateprovince',
                 'primaryaddressstateterritory').toUpperCase().slice(0,3),
@@ -1133,7 +1131,7 @@ async function buildDatasetFromRows(rawRows, sourceName) {
   }
 
   // Normalize rows
-  const emps = rawRows.map(normalizeRow).filter(e => e.name);
+  const emps = rawRows.map(normalizeRow).filter(e => e.name || e.work_email);
 
   // Group by ZIP
   const byZip = new Map();
@@ -1487,6 +1485,7 @@ ${jsBlock}
       const det=[];
       if(e.location_code)det.push('Office: '+escapeHtml(e.location_code));
       if(e.hire_date)det.push('Hired: '+escapeHtml(e.hire_date));
+      if(e.work_email)det.push('<a href="mailto:'+escapeHtml(e.work_email)+'">'+escapeHtml(e.work_email)+'</a>');
       return '<div class="emp"><div class="nm">'+(escapeHtml(e.name)||'—')+'</div>'+(e.title?'<div class="role">'+escapeHtml(e.title)+'</div>':'')+(e.department?'<div class="role">'+escapeHtml(e.department)+'</div>':'')+'<div class="det">'+det.join(' · ')+'</div></div>';
     }).join('');
     const html='<div class="pop"><div class="pop-head"><div class="where">'+escapeHtml(f.city||'—')+', '+escapeHtml(f.state||'')+'</div><div class="sub">ZIP '+escapeHtml(f.zip)+' · '+f.count+' employee'+(f.count===1?'':'s')+'</div></div><div class="pop-list">'+list+'</div><div class="pop-foot">Aggregated to ZIP centroid · No PII shown</div></div>';
