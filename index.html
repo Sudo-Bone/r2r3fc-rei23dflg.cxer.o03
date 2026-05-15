@@ -18,7 +18,7 @@
     --ink: #161614;
     --ink-soft: #5a564f;
     --line: #e3dfd6;
-    --accent: #e8540b;
+    --accent: #e8540b;       /* Orange EV-ish */
     --accent-soft: #fce6d6;
     --warn-bg: #fff3cd;
     --warn-ink: #614a08;
@@ -29,97 +29,345 @@
   }
   * { box-sizing: border-box; }
   html, body { height: 100%; margin: 0; }
-  body { display: flex; flex-direction: column; background: var(--bg); color: var(--ink); font-size: 14px; line-height: 1.45; -webkit-font-smoothing: antialiased; }
-  header.topbar { flex: none; display: flex; align-items: center; gap: 16px; padding: 10px 16px; background: #fff; border-bottom: 1px solid var(--line); z-index: 1000; }
-  header.topbar h1 { margin: 0; font-size: 13px; font-weight: 600; letter-spacing: -0.005em; }
-  header.topbar .meta { display: flex; gap: 14px; font-size: 11px; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+  body {
+    display: flex; flex-direction: column;
+    background: var(--bg); color: var(--ink);
+    font-size: 14px; line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+  }
+  header.topbar {
+    flex: none;
+    display: flex; align-items: center; gap: 16px;
+    padding: 10px 16px;
+    background: #fff; border-bottom: 1px solid var(--line);
+    z-index: 1000;
+  }
+  header.topbar h1 {
+    margin: 0; font-size: 13px; font-weight: 600;
+    letter-spacing: -0.005em;
+  }
+  header.topbar .meta {
+    display: flex; gap: 14px;
+    font-size: 11px; color: var(--ink-soft);
+    font-variant-numeric: tabular-nums;
+  }
   header.topbar .meta strong { color: var(--ink); font-weight: 600; }
-  header.topbar .conf { margin-left: auto; font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
-  #map { flex: 1; min-height: 0; background: #e8e4dc; }
+  header.topbar .conf {
+    margin-left: auto;
+    font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--accent); font-weight: 600;
+  }
+  #map {
+    flex: 1; min-height: 0;
+    background: #e8e4dc;
+  }
   .leaflet-container { font-family: inherit; }
 
-  /* Error banner */
-  #err { position: absolute; top: 56px; left: 50%; transform: translateX(-50%); z-index: 1100; max-width: 560px; background: var(--warn-bg); color: var(--warn-ink); border: 1px solid var(--warn-line); border-radius: var(--radius); padding: 10px 14px; font-size: 13px; box-shadow: var(--shadow); }
-  #err button { background: none; border: none; color: inherit; cursor: pointer; font-size: 16px; line-height: 1; margin-left: 8px; }
+  /* ----- Error banner ----- */
+  #err {
+    position: absolute; top: 56px; left: 50%; transform: translateX(-50%);
+    z-index: 1100; max-width: 560px;
+    background: var(--warn-bg); color: var(--warn-ink);
+    border: 1px solid var(--warn-line); border-radius: var(--radius);
+    padding: 10px 14px; font-size: 13px;
+    box-shadow: var(--shadow);
+  }
+  #err button {
+    background: none; border: none; color: inherit; cursor: pointer;
+    font-size: 16px; line-height: 1; margin-left: 8px;
+  }
 
-  /* Popup */
-  .leaflet-popup-content-wrapper { border-radius: var(--radius); box-shadow: var(--shadow); }
-  .leaflet-popup-content { margin: 0; min-width: 280px; max-width: 340px; }
-  .pop { font-family: 'Inter', system-ui, sans-serif; }
-  .pop-head { padding: 10px 14px 8px; border-bottom: 1px solid var(--line); }
-  .pop-head .where { font-size: 13px; font-weight: 600; color: var(--ink); }
-  .pop-head .sub { font-size: 11px; color: var(--ink-soft); margin-top: 2px; font-variant-numeric: tabular-nums; }
-  .pop-list { max-height: 240px; overflow-y: auto; padding: 4px 0; }
-  .emp { padding: 8px 14px; border-bottom: 1px solid var(--line); }
+  /* ----- Popup ----- */
+  .leaflet-popup-content-wrapper {
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+  .leaflet-popup-content {
+    margin: 0; min-width: 280px; max-width: 340px;
+  }
+  .pop {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  .pop-head {
+    padding: 10px 14px 8px;
+    border-bottom: 1px solid var(--line);
+  }
+  .pop-head .where {
+    font-size: 13px; font-weight: 600; color: var(--ink);
+  }
+  .pop-head .sub {
+    font-size: 11px; color: var(--ink-soft); margin-top: 2px;
+    font-variant-numeric: tabular-nums;
+  }
+  .pop-list {
+    max-height: 240px; overflow-y: auto;
+    padding: 4px 0;
+  }
+  .emp {
+    padding: 8px 14px;
+    border-bottom: 1px solid var(--line);
+  }
   .emp:last-child { border-bottom: none; }
-  .emp .nm { font-weight: 600; font-size: 13px; color: var(--ink); }
+  .emp .nm {
+    font-weight: 600; font-size: 13px; color: var(--ink);
+  }
   .emp .role { font-size: 12px; color: var(--ink-soft); margin-top: 1px; }
-  .emp .det { font-size: 11px; color: var(--ink-soft); margin-top: 4px; font-variant-numeric: tabular-nums; display: flex; flex-wrap: wrap; gap: 4px 10px; }
+  .emp .det {
+    font-size: 11px; color: var(--ink-soft);
+    margin-top: 4px; font-variant-numeric: tabular-nums;
+    display: flex; flex-wrap: wrap; gap: 4px 10px;
+  }
   .emp .det a { color: var(--ink-soft); text-decoration: none; }
   .emp .det a:hover { color: var(--accent); }
-  .pop-foot { padding: 6px 14px; font-size: 10px; color: var(--ink-soft); border-top: 1px solid var(--line); background: #fafaf8; text-transform: uppercase; letter-spacing: 0.04em; }
+  .pop-foot {
+    padding: 6px 14px; font-size: 10px; color: var(--ink-soft);
+    border-top: 1px solid var(--line); background: #fafaf8;
+    text-transform: uppercase; letter-spacing: 0.04em;
+  }
 
-  /* Marker */
-  .zip-marker { background: var(--accent); color: #fff; border-radius: 999px; border: 2px solid #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.25); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 11px; font-variant-numeric: tabular-nums; transition: transform .12s ease; }
+  /* ----- Marker ----- */
+  .zip-marker {
+    background: var(--accent);
+    color: #fff;
+    border-radius: 999px;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 600; font-size: 11px;
+    font-variant-numeric: tabular-nums;
+    transition: transform .12s ease;
+  }
   .zip-marker:hover { transform: scale(1.08); }
 
-  /* Export control */
-  .leaflet-bar.export-ctrl a, .leaflet-bar.export-ctrl button { background: #fff; color: var(--ink); width: auto; height: auto; line-height: 1; padding: 7px 12px; font-family: inherit; font-size: 12px; font-weight: 500; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+  /* ----- Export control ----- */
+  .leaflet-bar.export-ctrl a,
+  .leaflet-bar.export-ctrl button {
+    background: #fff; color: var(--ink);
+    width: auto; height: auto; line-height: 1;
+    padding: 7px 12px;
+    font-family: inherit; font-size: 12px; font-weight: 500;
+    border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+  }
   .leaflet-bar.export-ctrl a:hover { background: var(--accent-soft); color: var(--accent); }
-  .export-menu { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); margin-top: 6px; padding: 4px 0; min-width: 180px; display: none; }
+  .export-menu {
+    background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-top: 6px; padding: 4px 0; min-width: 180px;
+    display: none;
+  }
   .export-menu.open { display: block; }
-  .export-menu button { width: 100%; text-align: left; background: none; border: none; cursor: pointer; padding: 8px 14px; font: inherit; font-size: 12px; color: var(--ink); }
+  .export-menu button {
+    width: 100%; text-align: left;
+    background: none; border: none; cursor: pointer;
+    padding: 8px 14px; font: inherit; font-size: 12px;
+    color: var(--ink);
+  }
   .export-menu button:hover { background: var(--accent-soft); color: var(--accent); }
-  .export-menu .hint { padding: 6px 14px 8px; font-size: 10px; color: var(--ink-soft); border-top: 1px solid var(--line); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .export-menu .hint {
+    padding: 6px 14px 8px; font-size: 10px; color: var(--ink-soft);
+    border-top: 1px solid var(--line); margin-top: 4px;
+    text-transform: uppercase; letter-spacing: 0.04em;
+  }
 
-  /* Legend */
-  .legend { background: #fff; padding: 10px 12px; border-radius: var(--radius); box-shadow: var(--shadow); font-size: 11px; line-height: 1.5; border: 1px solid var(--line); }
-  .legend h4 { margin: 0 0 6px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ink-soft); }
+  /* ----- Legend ----- */
+  .legend {
+    background: #fff; padding: 10px 12px;
+    border-radius: var(--radius); box-shadow: var(--shadow);
+    font-size: 11px; line-height: 1.5;
+    border: 1px solid var(--line);
+  }
+  .legend h4 {
+    margin: 0 0 6px; font-size: 11px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.04em;
+    color: var(--ink-soft);
+  }
   .legend .row { display: flex; align-items: center; gap: 8px; }
-  .legend .dot { background: var(--accent); border: 2px solid #fff; border-radius: 999px; box-shadow: 0 1px 3px rgba(0,0,0,0.25); }
-  .legend .conf { margin-top: 8px; padding-top: 6px; border-top: 1px solid var(--line); font-size: 10px; color: var(--accent); text-transform: uppercase; letter-spacing: 0.04em; }
+  .legend .dot {
+    background: var(--accent); border: 2px solid #fff;
+    border-radius: 999px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+  }
+  .legend .conf {
+    margin-top: 8px; padding-top: 6px;
+    border-top: 1px solid var(--line);
+    font-size: 10px; color: var(--accent);
+    text-transform: uppercase; letter-spacing: 0.04em;
+  }
 
+  /* Make sure html-to-image picks up everything */
   .leaflet-tile { image-rendering: -webkit-optimize-contrast; }
 
-  /* Layout */
-  .layout { flex: 1; min-height: 0; display: flex; flex-direction: row; }
-  #sidebar { flex: none; width: 320px; background: #fff; border-right: 1px solid var(--line); display: flex; flex-direction: column; overflow: hidden; z-index: 500; }
+  /* ----- Layout with sidebar ----- */
+  .layout {
+    flex: 1; min-height: 0;
+    display: flex; flex-direction: row;
+  }
+  #sidebar {
+    flex: none;
+    width: 320px;
+    background: #fff;
+    border-right: 1px solid var(--line);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    z-index: 500;
+  }
   #map { flex: 1; min-height: 0; background: #e8e4dc; }
 
-  .side-section { padding: 12px 14px; border-bottom: 1px solid var(--line); }
-  .side-section h3 { margin: 0 0 8px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); }
-  .side-section .hint { font-size: 11px; color: var(--ink-soft); margin-top: 6px; }
-  .side-section input[type="text"], .side-section select { width: 100%; padding: 7px 9px; font-family: inherit; font-size: 13px; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; color: var(--ink); outline: none; }
-  .side-section input[type="text"]:focus, .side-section select:focus { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-soft); }
-  .side-section .row-flex { display: flex; gap: 6px; align-items: center; }
-  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 7px 10px; background: #fff; color: var(--ink); border: 1px solid var(--line); border-radius: var(--radius); font-family: inherit; font-size: 12px; font-weight: 500; cursor: pointer; }
+  .side-section {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--line);
+  }
+  .side-section h3 {
+    margin: 0 0 8px;
+    font-size: 11px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--ink-soft);
+  }
+  .side-section .hint {
+    font-size: 11px; color: var(--ink-soft); margin-top: 6px;
+  }
+  .side-section input[type="text"],
+  .side-section select {
+    width: 100%;
+    padding: 7px 9px;
+    font-family: inherit; font-size: 13px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: #fff; color: var(--ink);
+    outline: none;
+  }
+  .side-section input[type="text"]:focus,
+  .side-section select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px var(--accent-soft);
+  }
+  .side-section .row-flex {
+    display: flex; gap: 6px; align-items: center;
+  }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    padding: 7px 10px;
+    background: #fff; color: var(--ink);
+    border: 1px solid var(--line); border-radius: var(--radius);
+    font-family: inherit; font-size: 12px; font-weight: 500;
+    cursor: pointer;
+  }
   .btn:hover { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
-  .btn-primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .btn-primary {
+    background: var(--accent); color: #fff; border-color: var(--accent);
+  }
   .btn-primary:hover { background: #cf4a09; color: #fff; border-color: #cf4a09; }
-  .btn-ghost { background: transparent; border-color: transparent; padding: 4px 8px; color: var(--ink-soft); }
+  .btn-ghost {
+    background: transparent; border-color: transparent; padding: 4px 8px;
+    color: var(--ink-soft);
+  }
   .btn-ghost:hover { background: var(--accent-soft); color: var(--accent); }
 
   #file-input { display: none; }
 
-  #gsheets-status, #upload-status { margin-top: 8px; font-size: 11px; padding: 6px 8px; border-radius: var(--radius); display: none; }
-  #gsheets-status.success, #upload-status.success { display: block; background: #e6f4e6; color: #1e5b1e; border: 1px solid #b8d8b8; }
-  #gsheets-status.error, #upload-status.error { display: block; background: var(--warn-bg); color: var(--warn-ink); border: 1px solid var(--warn-line); }
-  #gsheets-status.working, #upload-status.working { display: block; background: #eef4ff; color: #1d3b7a; border: 1px solid #b8c8e0; }
+  /* Google Sheets status */
+  #gsheets-status {
+    margin-top: 8px;
+    font-size: 11px;
+    padding: 6px 8px;
+    border-radius: var(--radius);
+    display: none;
+  }
+  #gsheets-status.success {
+    display: block;
+    background: #e6f4e6; color: #1e5b1e; border: 1px solid #b8d8b8;
+  }
+  #gsheets-status.error {
+    display: block;
+    background: var(--warn-bg); color: var(--warn-ink); border: 1px solid var(--warn-line);
+  }
+  #gsheets-status.working {
+    display: block;
+    background: #eef4ff; color: #1d3b7a; border: 1px solid #b8c8e0;
+  }
 
-  #state-details { flex: 1; min-height: 0; overflow-y: auto; padding: 0; }
-  #state-details .empty { padding: 14px; font-size: 12px; color: var(--ink-soft); text-align: center; font-style: italic; }
-  .state-summary { padding: 12px 14px; background: var(--accent-soft); border-bottom: 1px solid var(--warn-line); }
-  .state-summary .big { font-size: 24px; font-weight: 600; color: var(--accent); font-variant-numeric: tabular-nums; line-height: 1; }
-  .state-summary .lbl { font-size: 11px; color: var(--ink-soft); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.04em; }
-  .state-summary .state-name { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
-  .state-emp-list .emp-row { padding: 8px 14px; border-bottom: 1px solid var(--line); cursor: pointer; transition: background .1s; }
+  /* State details panel */
+  #state-details {
+    flex: 1; min-height: 0;
+    overflow-y: auto;
+    padding: 0;
+  }
+  #state-details .empty {
+    padding: 14px;
+    font-size: 12px; color: var(--ink-soft);
+    text-align: center;
+    font-style: italic;
+  }
+  .state-summary {
+    padding: 12px 14px;
+    background: var(--accent-soft);
+    border-bottom: 1px solid var(--warn-line);
+  }
+  .state-summary .big {
+    font-size: 24px; font-weight: 600; color: var(--accent);
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+  .state-summary .lbl {
+    font-size: 11px; color: var(--ink-soft); margin-top: 4px;
+    text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  .state-summary .state-name {
+    font-size: 14px; font-weight: 600; color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .state-emp-list .emp-row {
+    padding: 8px 14px;
+    border-bottom: 1px solid var(--line);
+    cursor: pointer;
+    transition: background .1s;
+  }
   .state-emp-list .emp-row:hover { background: var(--accent-soft); }
-  .state-emp-list .emp-row .nm { font-weight: 600; font-size: 13px; color: var(--ink); }
-  .state-emp-list .emp-row .role { font-size: 11px; color: var(--ink-soft); margin-top: 2px; }
-  .state-emp-list .emp-row .where { font-size: 10px; color: var(--ink-soft); margin-top: 2px; font-variant-numeric: tabular-nums; text-transform: uppercase; letter-spacing: 0.04em; }
+  .state-emp-list .emp-row .nm {
+    font-weight: 600; font-size: 13px; color: var(--ink);
+  }
+  .state-emp-list .emp-row .role {
+    font-size: 11px; color: var(--ink-soft); margin-top: 2px;
+  }
+  .state-emp-list .emp-row .where {
+    font-size: 10px; color: var(--ink-soft); margin-top: 2px;
+    font-variant-numeric: tabular-nums;
+    text-transform: uppercase; letter-spacing: 0.04em;
+  }
 
-  .filter-status { display: inline-block; padding: 2px 8px; margin-top: 6px; background: var(--accent-soft); color: var(--accent); border-radius: 999px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+  /* Filter status pill */
+  .filter-status {
+    display: inline-block;
+    padding: 2px 8px;
+    margin-top: 6px;
+    background: var(--accent-soft); color: var(--accent);
+    border-radius: 999px;
+    font-size: 10px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.04em;
+  }
 
+  /* Upload status */
+  #upload-status {
+    margin-top: 8px;
+    font-size: 11px;
+    padding: 6px 8px;
+    border-radius: var(--radius);
+    display: none;
+  }
+  #upload-status.success {
+    display: block;
+    background: #e6f4e6; color: #1e5b1e; border: 1px solid #b8d8b8;
+  }
+  #upload-status.error {
+    display: block;
+    background: var(--warn-bg); color: var(--warn-ink); border: 1px solid var(--warn-line);
+  }
+  #upload-status.working {
+    display: block;
+    background: #eef4ff; color: #1d3b7a; border: 1px solid #b8c8e0;
+  }
+
+  /* Mobile: sidebar becomes top panel */
   @media (max-width: 720px) {
     .layout { flex-direction: column; }
     #sidebar { width: 100%; max-height: 45%; border-right: none; border-bottom: 1px solid var(--line); }
@@ -134,6 +382,7 @@
     <span><strong id="m-count">—</strong> employees</span>
     <span><strong id="m-zips">—</strong> ZIP locations</span>
     <span>Source: <strong id="m-src">—</strong></span>
+    <span>Last updated: <strong id="m-updated">—</strong></span>
   </div>
   <span class="conf">Confidential · Aggregated</span>
 </header>
@@ -163,7 +412,7 @@
         <button class="btn btn-ghost" id="reset-data" title="Reload from Google Sheet">↺ Reload Sheet</button>
       </div>
       <input type="file" id="file-input" accept=".xlsx,.xls,.csv,.json">
-      <div class="hint">Accepts <strong>.xlsx</strong>, <strong>.csv</strong>, or <strong>.json</strong>. All columns from your sheet are preserved.</div>
+      <div class="hint">Accepts <strong>.xlsx</strong>, <strong>.csv</strong>, or <strong>.json</strong>. For spreadsheets, columns needed: Name, Title, Department, Work Email, City, State, ZIP, Hire Date. Optional: Location Code, Position Status.</div>
       <div id="upload-status"></div>
     </div>
 
@@ -194,11 +443,44 @@
 
 <script>
 /* ============================================================
- * ALL HELPER FUNCTIONS — DEFINED FIRST (fixes "not defined" errors)
+ * DATASET — loaded live from Google Sheets on every page open.
+ * No embedded data. The Google Sheet is the sole source of truth.
  * ============================================================ */
+
+/* ============================================================
+ * LIBRARY PRECACHE
+ * Fetch Leaflet's source on load so we can inline it into the
+ * Shareable HTML export (otherwise the export depends on a CDN).
+ * Tiles still require network, which is unavoidable for any web map.
+ * ============================================================ */
+const LEAFLET_JS_URL = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+const LEAFLET_CSS_URL = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+let leafletJsText = '';
+let leafletCssText = '';
+(async function precache() {
+  try {
+    [leafletJsText, leafletCssText] = await Promise.all([
+      fetch(LEAFLET_JS_URL).then(r => r.text()),
+      fetch(LEAFLET_CSS_URL).then(r => r.text()),
+    ]);
+  } catch (e) {
+    console.warn('Could not precache Leaflet for offline-export inlining:', e);
+  }
+})();
+
+/* ============================================================
+ * UTILITIES
+ * ============================================================ */
+function showError(msg) {
+  const el = document.getElementById('err');
+  document.getElementById('err-msg').textContent = ' ' + msg;
+  el.hidden = false;
+}
 function escapeHtml(s) {
   if (s == null) return '';
-  return String(s).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#39;');
+  return String(s)
+    .replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#39;');
 }
 function pad(n) { return String(n).padStart(2, '0'); }
 function ts() {
@@ -213,219 +495,69 @@ function downloadBlob(blob, filename) {
   setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 100);
 }
 function markerSize(count) {
+  // log-ish scale: 1 -> 22px, 10 -> 32px, 50 -> 44px
   return Math.round(20 + Math.log2(count + 1) * 4);
 }
 
-/* CORS + Google Sheets helpers */
-const CORS_PROXIES = [
-  (url) => `https://corsproxy.io/?${encodeURIComponent(url)}`,
-  (url) => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
-  (url) => `https://cors-anywhere.herokuapp.com/${url}`
-];
-
-async function fetchWithCorsProxy(targetUrl) {
-  for (let i = 0; i < CORS_PROXIES.length; i++) {
-    try {
-      const proxyUrl = CORS_PROXIES[i](targetUrl);
-      const res = await fetch(proxyUrl, { signal: AbortSignal.timeout(12000) });
-      if (res.ok) {
-        let text = await res.text();
-        if (text.trim().startsWith('{"contents"')) {
-          try { return JSON.parse(text).contents; } catch (_) {}
-        }
-        return text;
-      }
-    } catch (e) {
-      console.warn(`Proxy ${i} failed:`, e.message);
-    }
-  }
-  throw new Error('All CORS proxies failed. Try uploading the sheet as CSV instead.');
-}
-
-function googleSheetsToCsvUrl(url) {
-  const id = url.match(/\/spreadsheets\/d\/([a-zA-Z0-9_-]+)/)?.[1];
-  if (!id) throw new Error('Could not find Google Sheets ID in the URL.');
-  let csvUrl = `https://docs.google.com/spreadsheets/d/${id}/export?format=csv`;
-  const gid = url.match(/[?&#]gid=(\d+)/)?.[1];
-  if (gid) csvUrl += `&gid=${gid}`;
-  return csvUrl;
-}
-
-function extractSheetId(url) {
-  return url.match(/\/spreadsheets\/d\/([a-zA-Z0-9_-]+)/)?.[1] || null;
-}
-
-/* ZIP lookup */
-async function lookupZipCoords(zip) {
-  const z = String(zip).trim();
-  if (/^\d{5}$/.test(z)) {
-    try {
-      const r = await fetch(`https://api.zippopotam.us/us/${z}`);
-      if (r.ok) {
-        const j = await r.json();
-        const p = j.places && j.places[0];
-        if (p) return { lat: parseFloat(p.latitude), lng: parseFloat(p.longitude), city: p['place name'], state: p['state abbreviation'], country: 'US' };
-      }
-    } catch (_) {}
-  }
-  if (/^[A-Za-z]\d[A-Za-z]/.test(z)) {
-    try {
-      const r = await fetch(`https://api.zippopotam.us/ca/${z.slice(0,3).toUpperCase()}`);
-      if (r.ok) {
-        const j = await r.json();
-        const p = j.places && j.places[0];
-        if (p) return { lat: parseFloat(p.latitude), lng: parseFloat(p.longitude), city: p['place name'], state: p['state abbreviation'], country: 'CA' };
-      }
-    } catch (_) {}
-  }
-  return null;
-}
-
-/* Full row data preservation */
-function normalizeRow(row) {
-  const lower = {};
-  for (const k of Object.keys(row)) {
-    const key = String(k).toLowerCase().replace(/[^a-z0-9]/g, '');
-    lower[key] = row[k];
-  }
-  const pick = (...keys) => {
-    for (const k of keys) {
-      if (lower[k] != null && String(lower[k]).trim() !== '') return String(lower[k]).trim();
-    }
-    return '';
-  };
-
-  let zip = pick('zip', 'zipcode', 'postalcode', 'postal').toUpperCase().replace(/\s+/g, '');
-  if (zip.includes('-')) zip = zip.split('-')[0];
-  if (/^\d{1,4}$/.test(zip)) zip = zip.padStart(5, '0');
-  if (/^\d{6,}$/.test(zip)) zip = zip.slice(0, 5);
-
-  const firstName = pick('preferredorchosenfirstname', 'legalfirstname', 'firstname');
-  const lastName = pick('preferredorchosenlastname', 'legallastname', 'lastname');
-  const combinedName = (firstName + ' ' + lastName).trim();
-  const singleName = pick('name', 'fullname', 'employeename', 'employee');
-
-  const standard = {
-    name: combinedName || singleName,
-    title: pick('title', 'jobtitle', 'position', 'job'),
-    department: pick('department', 'dept', 'homedepartment'),
-    business_unit: pick('businessunit', 'bu'),
-    work_email: pick('workemail', 'email', 'emailaddress'),
-    location_code: pick('locationcode', 'location', 'office'),
-    city: pick('city', 'residencecity', 'hometowncity', 'primaryaddresscity'),
-    state: pick('state', 'residencestate', 'province', 'stateprovince', 'primaryaddressstateterritory').toUpperCase().slice(0,3),
-    zip,
-    hire_date: pick('hiredate', 'datehired', 'starteddate', 'start'),
-    position_status: pick('positionstatus', 'status', 'employmentstatus')
-  };
-
-  return { ...row, ...standard };
-}
-
-/* Build dataset from rows */
-async function buildDatasetFromRows(rawRows, sourceName) {
-  const zipLookup = new Map();
-  for (const f of (ORIGINAL_DATASET.features || [])) {
-    if (!f.zip || typeof f.lat !== 'number' || typeof f.lng !== 'number') continue;
-    zipLookup.set(String(f.zip).toUpperCase().trim(), { lat: f.lat, lng: f.lng, city: f.city, state: f.state, country: f.country });
-  }
-
-  const emps = rawRows.map(normalizeRow).filter(e => e.name || e.work_email);
-
-  const byZip = new Map();
-  for (const e of emps) {
-    const zipKey = (e.zip || '').toUpperCase().trim();
-    if (!zipKey) continue;
-    if (!byZip.has(zipKey)) byZip.set(zipKey, []);
-    byZip.get(zipKey).push(e);
-  }
-  if (byZip.size === 0) throw new Error('No rows had a ZIP column.');
-
-  const unknownZips = [...byZip.keys()].filter(z => !zipLookup.has(z));
-  if (unknownZips.length) {
-    const status = document.getElementById('upload-status');
-    if (status) {
-      status.className = 'working';
-      status.textContent = `Looking up ${unknownZips.length} ZIP codes…`;
-      status.style.display = 'block';
-    }
-    await Promise.all(unknownZips.map(async zip => {
-      const coords = await lookupZipCoords(zip);
-      if (coords) zipLookup.set(zip, coords);
-    }));
-  }
-
-  const features = [];
-  let unplaced = 0;
-  for (const [zip, employees] of byZip) {
-    const coords = zipLookup.get(zip);
-    if (!coords) { unplaced += employees.length; continue; }
-    const firstWithCity = employees.find(e => e.city) || {};
-    const firstWithState = employees.find(e => e.state) || {};
-    features.push({
-      lat: coords.lat,
-      lng: coords.lng,
-      zip,
-      country: coords.country || 'US',
-      city: firstWithCity.city || coords.city || '',
-      state: (firstWithState.state || coords.state || '').toUpperCase().slice(0,3),
-      count: employees.length,
-      employees
-    });
-  }
-  features.sort((a, b) => b.count - a.count);
-  return {
-    generated_at: new Date().toISOString().slice(0,10),
-    source: sourceName,
-    total_employees_plotted: features.reduce((s,f) => s + f.count, 0),
-    unique_locations: features.length,
-    features
-  };
-}
-
-/* Parse uploaded file */
-async function parseUploadedFile(file) {
-  if (file.name.toLowerCase().endsWith('.json')) {
-    const text = await file.text();
-    const json = JSON.parse(text);
-    if (Array.isArray(json)) return await buildDatasetFromRows(json, file.name);
-    return json;
-  }
-  const buf = await file.arrayBuffer();
-  const wb = XLSX.read(buf, { type: 'array' });
-  const rows = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { defval: '', raw: false });
-  return await buildDatasetFromRows(rows, file.name);
-}
-
 /* ============================================================
- * MAP, FILTERS, RENDERING
+ * MAP INITIALIZATION
  * ============================================================ */
-const map = L.map('map', { zoomControl: true, preferCanvas: false, worldCopyJump: true, attributionControl: true });
+const map = L.map('map', {
+  zoomControl: true,
+  preferCanvas: false,
+  worldCopyJump: true,
+  attributionControl: true,
+});
+// Default fallback view (only if data load fails) — North America-ish
 const FALLBACK_VIEW = { center: [39.5, -95.5], zoom: 4 };
 
+// ORIGINAL_DATASET starts null — populated once the live sheet loads.
+// Reset restores whatever was last fetched from the sheet.
 let ORIGINAL_DATASET = { generated_at: '', source: 'Live Google Sheet', total_employees_plotted: 0, unique_locations: 0, features: [] };
+// Current active dataset (may be replaced by user upload). Filters operate on this.
 let CURRENT_DATASET = { generated_at: '', source: 'Live Google Sheet', total_employees_plotted: 0, unique_locations: 0, features: [] };
+// Persistent marker group — replaced on every re-render.
 let markerGroup = null;
+// Current filter state
+const FILTERS = {
+  position: '',   // case-insensitive substring search on title
+  state: '',      // exact state-code match, or '' for all
+};
 
-const FILTERS = { position: '', state: '' };
+// Auto-refresh timer
+let autoRefreshInterval = null;
 
-L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-  maxZoom: 19,
-  subdomains: 'abcd',
-  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-  crossOrigin: 'anonymous'
-}).addTo(map);
+// Using CARTO Voyager basemap — free, no API key, CORS-friendly, and explicitly
+// permits iframe/embedded use. OpenStreetMap's own tile servers block sandboxed
+// iframes (Claude artifacts among them) and return a "tile-shaped" 403 image
+// that ruins exports.
+const tileLayer = L.tileLayer(
+  'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+  {
+    maxZoom: 19,
+    subdomains: 'abcd',
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    crossOrigin: 'anonymous',  // critical: enables canvas export without taint
+  }
+).addTo(map);
 
+/* ============================================================
+ * FILTERING + RENDERING
+ * ============================================================ */
 function passesFilters(employee, feature) {
+  // Position filter: case-insensitive substring match on title or department
   if (FILTERS.position) {
     const q = FILTERS.position.toLowerCase();
     const hay = ((employee.title || '') + ' ' + (employee.department || '')).toLowerCase();
     if (!hay.includes(q)) return false;
   }
+  // State filter applies to the FEATURE's state (the residential ZIP's state)
   if (FILTERS.state && feature.state !== FILTERS.state) return false;
   return true;
 }
 
+// Build features list with filters applied. Each feature's count is recomputed
+// so the marker reflects what's currently visible after filtering.
 function getFilteredFeatures(ds) {
   const out = [];
   for (const f of (ds.features || [])) {
@@ -449,14 +581,20 @@ function renderDataset(ds, opts = {}) {
   const filtered = getFilteredFeatures(ds);
   const totalEmps = filtered.reduce((s, f) => s + f.count, 0);
   const group = L.featureGroup();
+  let skipped = 0;
   for (const f of filtered) {
-    if (typeof f.lat !== 'number' || typeof f.lng !== 'number' || isNaN(f.lat) || isNaN(f.lng)) continue;
+    if (typeof f.lat !== 'number' || typeof f.lng !== 'number'
+        || isNaN(f.lat) || isNaN(f.lng)) {
+      skipped++;
+      console.warn('Skipped feature with invalid coords:', f);
+      continue;
+    }
     const size = markerSize(f.count);
     const icon = L.divIcon({
       className: '',
       html: `<div class="zip-marker" style="width:${size}px;height:${size}px;">${f.count}</div>`,
       iconSize: [size, size],
-      iconAnchor: [size/2, size/2]
+      iconAnchor: [size/2, size/2],
     });
     const m = L.marker([f.lat, f.lng], { icon, title: `${f.city || f.zip}: ${f.count}` });
     m.bindPopup(buildPopupHtml(f), { maxWidth: 360, autoPanPadding: [40, 60] });
@@ -464,31 +602,50 @@ function renderDataset(ds, opts = {}) {
   }
   group.addTo(map);
   markerGroup = group;
-
+  if (skipped) console.warn(`${skipped} location(s) skipped due to invalid coords.`);
   if (fit) {
     const b = group.getBounds();
-    if (b.isValid()) map.fitBounds(b, { padding: [40, 40] });
-    else map.setView(FALLBACK_VIEW.center, FALLBACK_VIEW.zoom);
+    if (b.isValid()) {
+      map.fitBounds(b, { padding: [40, 40] });
+    } else if (!filtered.length) {
+      // No features match — keep current view
+      console.info('No features match current filters.');
+    } else {
+      map.setView(FALLBACK_VIEW.center, FALLBACK_VIEW.zoom);
+    }
   }
-
-  const allTotal = ds.total_employees_plotted || 0;
+  // header meta
+  const allFeatures = ds.features || [];
+  const allTotal = ds.total_employees_plotted ?? allFeatures.reduce((s, f) => s + (f.count || 0), 0);
   const hasFilter = FILTERS.position || FILTERS.state;
-  document.getElementById('m-count').textContent = hasFilter ? `${totalEmps} / ${allTotal}` : allTotal;
-  document.getElementById('m-zips').textContent = hasFilter ? `${filtered.length} / ${ds.features.length}` : ds.features.length;
+  document.getElementById('m-count').textContent = hasFilter
+    ? `${totalEmps} / ${allTotal}`
+    : allTotal;
+  document.getElementById('m-zips').textContent = hasFilter
+    ? `${filtered.length} / ${allFeatures.length}`
+    : allFeatures.length;
   document.getElementById('m-src').textContent = ds.source || '—';
 
+  // Update search-result hint
   const sr = document.getElementById('search-result');
-  sr.innerHTML = FILTERS.position ? `<span class="filter-status">${totalEmps} match${totalEmps === 1 ? '' : 'es'}</span>` : '&nbsp;';
+  if (sr) {
+    if (FILTERS.position) {
+      sr.innerHTML = `<span class="filter-status">${totalEmps} match${totalEmps === 1 ? '' : 'es'}</span>`;
+    } else {
+      sr.innerHTML = '&nbsp;';
+    }
+  }
 }
-
 function buildPopupHtml(f) {
-  const head = `<div class="pop-head"><div class="where">${escapeHtml(f.city || '—')}, ${escapeHtml(f.state || '')}</div><div class="sub">ZIP ${escapeHtml(f.zip)} · ${f.count} employee${f.count === 1 ? '' : 's'}</div></div>`;
+  const head = `<div class="pop-head">
+    <div class="where">${escapeHtml(f.city || '—')}, ${escapeHtml(f.state || '')}</div>
+    <div class="sub">ZIP ${escapeHtml(f.zip)} · ${f.count} employee${f.count === 1 ? '' : 's'}</div>
+  </div>`;
   const list = f.employees.map(e => {
     const det = [];
     if (e.location_code) det.push('Office: ' + escapeHtml(e.location_code));
     if (e.hire_date) det.push('Hired: ' + escapeHtml(e.hire_date));
     if (e.work_email) det.push(`<a href="mailto:${escapeHtml(e.work_email)}">${escapeHtml(e.work_email)}</a>`);
-    if (e.position_status) det.push('Status: ' + escapeHtml(e.position_status));
     return `<div class="emp">
       <div class="nm">${escapeHtml(e.name) || '—'}</div>
       ${e.title ? `<div class="role">${escapeHtml(e.title)}</div>` : ''}
@@ -496,12 +653,12 @@ function buildPopupHtml(f) {
       <div class="det">${det.join(' · ')}</div>
     </div>`;
   }).join('');
-  const foot = `<div class="pop-foot">ZIP centroid • All spreadsheet columns preserved • Confidential</div>`;
+  const foot = `<div class="pop-foot">Aggregated to ZIP centroid · No PII shown</div>`;
   return `<div class="pop">${head}<div class="pop-list">${list}</div>${foot}</div>`;
 }
 
 /* ============================================================
- * STATE DROPDOWN + DETAILS
+ * STATE DROPDOWN + STATE DETAILS PANEL
  * ============================================================ */
 const STATE_NAMES = {
   AL: 'Alabama', AK: 'Alaska', AZ: 'Arizona', AR: 'Arkansas', CA: 'California',
@@ -515,13 +672,15 @@ const STATE_NAMES = {
   SD: 'South Dakota', TN: 'Tennessee', TX: 'Texas', UT: 'Utah', VT: 'Vermont',
   VA: 'Virginia', WA: 'Washington', WV: 'West Virginia', WI: 'Wisconsin', WY: 'Wyoming',
   DC: 'District of Columbia',
+  // Canadian provinces (data has these)
   AB: 'Alberta', BC: 'British Columbia', MB: 'Manitoba', NB: 'New Brunswick',
   NL: 'Newfoundland and Labrador', NS: 'Nova Scotia', NT: 'Northwest Territories',
   NU: 'Nunavut', ON: 'Ontario', PE: 'Prince Edward Island', QC: 'Quebec',
-  SK: 'Saskatchewan', YT: 'Yukon'
+  SK: 'Saskatchewan', YT: 'Yukon',
 };
 
 function populateStateDropdown(ds) {
+  // Aggregate features by state from the (unfiltered) current dataset.
   const stateCounts = new Map();
   for (const f of (ds.features || [])) {
     if (!f.state) continue;
@@ -529,6 +688,7 @@ function populateStateDropdown(ds) {
   }
   const sel = document.getElementById('state-select');
   const prev = sel.value;
+  // Clear options except the first ("All states")
   while (sel.options.length > 1) sel.remove(1);
   const sorted = [...stateCounts.entries()]
     .map(([code, count]) => ({ code, count, name: STATE_NAMES[code] || code }))
@@ -539,6 +699,7 @@ function populateStateDropdown(ds) {
     opt.textContent = `${s.name} (${s.count})`;
     sel.appendChild(opt);
   }
+  // Restore prior selection if it still exists
   if (prev && [...sel.options].some(o => o.value === prev)) sel.value = prev;
 }
 
@@ -548,6 +709,8 @@ function renderStateDetails(stateCode) {
     container.innerHTML = '<div class="empty">Select a state above, or click a marker, to see employees who live there.</div>';
     return;
   }
+  // Collect all employees in this state from CURRENT_DATASET, applying position filter
+  // but NOT the state filter (so we can show details for the chosen state).
   const rows = [];
   for (const f of (CURRENT_DATASET.features || [])) {
     if (f.state !== stateCode) continue;
@@ -562,8 +725,15 @@ function renderStateDetails(stateCode) {
   }
   rows.sort((a, b) => (a.emp.name || '').localeCompare(b.emp.name || ''));
   const stateName = STATE_NAMES[stateCode] || stateCode;
-  const filterNote = FILTERS.position ? ` matching "${escapeHtml(FILTERS.position)}"` : '';
-  const summary = `<div class="state-summary"><div class="state-name">${escapeHtml(stateName)} (${escapeHtml(stateCode)})</div><div class="big">${rows.length}</div><div class="lbl">employee${rows.length === 1 ? '' : 's'}${filterNote}</div></div>`;
+  const filterNote = FILTERS.position
+    ? ` matching "${escapeHtml(FILTERS.position)}"`
+    : '';
+  const summary = `
+    <div class="state-summary">
+      <div class="state-name">${escapeHtml(stateName)} (${escapeHtml(stateCode)})</div>
+      <div class="big">${rows.length}</div>
+      <div class="lbl">employee${rows.length === 1 ? '' : 's'}${filterNote}</div>
+    </div>`;
   if (!rows.length) {
     container.innerHTML = summary + '<div class="empty">No employees match the current filters in this state.</div>';
     return;
@@ -575,81 +745,509 @@ function renderStateDetails(stateCode) {
       <div class="where">${escapeHtml(feature.city || '')} · ZIP ${escapeHtml(feature.zip)}</div>
     </div>`).join('');
   container.innerHTML = summary + `<div class="state-emp-list">${list}</div>`;
+  // Click handler: pan to that ZIP marker
   container.querySelectorAll('.emp-row').forEach(row => {
     row.addEventListener('click', () => {
       const lat = parseFloat(row.dataset.lat);
       const lng = parseFloat(row.dataset.lng);
-      if (!isNaN(lat) && !isNaN(lng)) map.setView([lat, lng], Math.max(map.getZoom(), 10), { animate: true });
+      if (!isNaN(lat) && !isNaN(lng)) {
+        map.setView([lat, lng], Math.max(map.getZoom(), 10), { animate: true });
+      }
     });
   });
 }
 
 /* ============================================================
- * AUTO REFRESH EVERY 5 MINUTES
+ * LIVE GOOGLE SHEET AUTO-REFRESH (every 5 minutes)
  * ============================================================ */
-let autoRefreshInterval = null;
+const LIVE_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1Ms-YACL62WXQ2SD0xOFbi2IX7jnWbdvzzd3uNzdFV00/edit?gid=1261231426#gid=1261231426';
 
-async function refreshLiveData() {
-  console.log('%c🔄 Auto-refreshing Google Sheet (every 5 min)', 'color:#e8540b;font-weight:600');
-  const statusEl = document.getElementById('upload-status');
+async function fetchLiveDataset() {
+  const csvUrl = googleSheetsToCsvUrl(LIVE_SHEET_URL);
+  const csvText = await fetchWithCorsProxy(csvUrl, null);
+  if (!csvText || csvText.trim().length === 0) throw new Error('Empty response from sheet.');
+
+  const wb = XLSX.read(csvText, { type: 'string' });
+  const sheetName = wb.SheetNames[0];
+  const rows = XLSX.utils.sheet_to_json(wb.Sheets[sheetName], { defval: '', raw: false });
+  if (!rows.length) throw new Error('Sheet has no data rows.');
+
+  const ds = await buildDatasetFromRows(rows, 'Live Google Sheet');
+  if (!ds || !Array.isArray(ds.features) || !ds.features.length) {
+    throw new Error('Sheet produced no plottable records. Check that it has Name and ZIP columns.');
+  }
+  return ds;
+}
+
+function updateLastUpdatedDisplay() {
+  const el = document.getElementById('m-updated');
+  if (!el) return;
+  const now = new Date();
+  el.textContent = now.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+}
+
+async function loadLiveData(silent = false) {
+  // Only auto-refresh if we are currently using the live sheet
+  if (!silent && CURRENT_DATASET.source !== 'Live Google Sheet') return false;
+
+  const status = document.getElementById('upload-status');
+  let originalStatusClass = status.className;
+  let originalStatusText = status.textContent;
+
+  if (!silent) {
+    status.className = 'working';
+    status.textContent = '🔄 Refreshing live data…';
+  }
+
   try {
-    const csvUrl = googleSheetsToCsvUrl(LIVE_SHEET_URL);
-    const csvText = await fetchWithCorsProxy(csvUrl);
-    const wb = XLSX.read(csvText, { type: 'string' });
-    const rows = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { defval: '', raw: false });
-    const ds = await buildDatasetFromRows(rows, 'Live Google Sheet');
+    const ds = await fetchLiveDataset();
 
+    CURRENT_DATASET = ds;
     ORIGINAL_DATASET = JSON.parse(JSON.stringify(ds));
 
-    if (CURRENT_DATASET.source === 'Live Google Sheet') {
-      CURRENT_DATASET = ds;
-      populateStateDropdown(CURRENT_DATASET);
-      renderDataset(CURRENT_DATASET, { fit: false });
-      renderStateDetails(FILTERS.state);
-    }
+    populateStateDropdown(CURRENT_DATASET);
+    // Preserve current view/filters (no refit on background refresh)
+    rerenderAll({ fit: false });
+    renderStateDetails(FILTERS.state);
 
-    if (statusEl) {
-      statusEl.className = 'success';
-      statusEl.textContent = `✅ Refreshed ${new Date().toLocaleTimeString([], {hour:'numeric', minute:'2-digit'})}`;
-      setTimeout(() => { statusEl.style.display = 'none'; }, 4000);
+    updateLastUpdatedDisplay();
+
+    if (!silent) {
+      status.className = 'success';
+      status.textContent = `✅ Live data updated (${ds.total_employees_plotted} employees)`;
+      // auto-hide success message
+      setTimeout(() => {
+        if (status.className === 'success') {
+          status.className = originalStatusClass || '';
+          status.textContent = originalStatusText || '';
+        }
+      }, 3000);
     }
+    console.log('%c✅ Live Google Sheet refreshed (every 5 min)', 'color:#e8540b;font-weight:600');
+    return true;
   } catch (err) {
-    console.error('Auto-refresh failed', err);
-    if (statusEl) {
-      statusEl.className = 'error';
-      statusEl.textContent = 'Auto-refresh failed';
-      setTimeout(() => { statusEl.style.display = 'none'; }, 5000);
+    console.error('Live refresh failed:', err);
+    if (!silent) {
+      status.className = 'error';
+      status.textContent = 'Refresh failed (retrying in 5 min)';
+      setTimeout(() => {
+        status.className = originalStatusClass || '';
+        status.textContent = originalStatusText || '';
+      }, 4000);
     }
+    return false;
   }
 }
 
 function startAutoRefresh() {
   if (autoRefreshInterval) clearInterval(autoRefreshInterval);
-  autoRefreshInterval = setInterval(refreshLiveData, 300000); // 5 minutes
-  console.log('✅ 5-minute auto-refresh enabled');
+  autoRefreshInterval = setInterval(() => {
+    loadLiveData(true); // silent = true for background
+  }, 300000); // 5 minutes
+  console.log('✅ Auto-refresh started — data will update every 5 minutes from live Google Sheet');
 }
 
 /* ============================================================
- * LIVE SHEET URL
+ * UI WIRING — search, state filter, file upload, reset
  * ============================================================ */
-const LIVE_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1Ms-YACL62WXQ2SD0xOFbi2IX7jnWbdvzzd3uNzdFV00/edit?gid=1261231426#gid=1261231426';
+function rerenderAll(opts = {}) {
+  renderDataset(CURRENT_DATASET, opts);
+  renderStateDetails(FILTERS.state);
+}
+
+// --- Position search (debounced) ---
+let searchTimer = null;
+document.getElementById('position-search').addEventListener('input', (e) => {
+  const v = e.target.value.trim();
+  clearTimeout(searchTimer);
+  document.getElementById('clear-search').style.display = v ? '' : 'none';
+  searchTimer = setTimeout(() => {
+    FILTERS.position = v;
+    rerenderAll({ fit: false });
+  }, 200);
+});
+document.getElementById('clear-search').addEventListener('click', () => {
+  document.getElementById('position-search').value = '';
+  document.getElementById('clear-search').style.display = 'none';
+  FILTERS.position = '';
+  rerenderAll({ fit: false });
+});
+
+// --- State filter ---
+document.getElementById('state-select').addEventListener('change', (e) => {
+  FILTERS.state = e.target.value;
+  rerenderAll({ fit: !!FILTERS.state });   // zoom to state when one is picked
+});
+
+// --- File upload ---
+document.getElementById('upload-btn').addEventListener('click', () => {
+  document.getElementById('file-input').click();
+});
+document.getElementById('file-input').addEventListener('change', async (e) => {
+  const file = e.target.files && e.target.files[0];
+  if (!file) return;
+  const status = document.getElementById('upload-status');
+  status.className = 'working';
+  status.textContent = `Reading ${file.name}…`;
+  try {
+    const ds = await parseUploadedFile(file);
+    if (!ds || !Array.isArray(ds.features) || !ds.features.length) {
+      throw new Error('File did not produce any usable employee records.');
+    }
+    CURRENT_DATASET = ds;
+    // Reset filters when new data loads
+    FILTERS.position = '';
+    FILTERS.state = '';
+    document.getElementById('position-search').value = '';
+    document.getElementById('clear-search').style.display = 'none';
+    document.getElementById('state-select').value = '';
+    populateStateDropdown(CURRENT_DATASET);
+    rerenderAll({ fit: true });
+    status.className = 'success';
+    status.textContent = `Loaded ${ds.total_employees_plotted} employees across ${ds.unique_locations} ZIP locations.`;
+  } catch (err) {
+    console.error('Upload failed:', err);
+    status.className = 'error';
+    status.textContent = 'Upload failed: ' + (err.message || err);
+  } finally {
+    // Allow re-uploading the same filename later
+    e.target.value = '';
+  }
+});
+
+// --- Reset / Reload from live Google Sheet (now uses shared live loader) ---
+document.getElementById('reset-data').addEventListener('click', async () => {
+  const btn = document.getElementById('reset-data');
+  btn.textContent = 'Loading…';
+  btn.disabled = true;
+  const status = document.getElementById('upload-status');
+  status.className = 'working';
+  status.textContent = 'Reloading from Google Sheet…';
+  try {
+    await loadLiveData(false); // full UI reset + refit
+    status.className = 'success';
+    status.textContent = `Reloaded from live sheet.`;
+  } catch (err) {
+    status.className = 'error';
+    status.textContent = 'Reload failed: ' + (err.message || err);
+  } finally {
+    btn.textContent = '↺ Reload Sheet';
+    btn.disabled = false;
+  }
+});
+
+// --- Google Sheets loader (custom URL) ---
+document.getElementById('gsheets-load-btn').addEventListener('click', async () => {
+  const input = document.getElementById('gsheets-url').value.trim();
+  const gstatus = document.getElementById('gsheets-status');
+  if (!input) {
+    gstatus.className = 'error';
+    gstatus.textContent = 'Please paste a Google Sheets URL first.';
+    return;
+  }
+  gstatus.className = 'working';
+  gstatus.textContent = 'Fetching sheet…';
+  try {
+    const csvUrl = googleSheetsToCsvUrl(input);
+    const csvText = await fetchWithCorsProxy(csvUrl, gstatus);
+    if (!csvText || csvText.trim().length === 0) {
+      throw new Error('Sheet returned empty content. Check the sharing settings and that it has data.');
+    }
+    // Parse the CSV via SheetJS
+    const wb = XLSX.read(csvText, { type: 'string' });
+    const sheetName = wb.SheetNames[0];
+    const rows = XLSX.utils.sheet_to_json(wb.Sheets[sheetName], { defval: '', raw: false });
+    if (!rows.length) throw new Error('Sheet appears to have no data rows.');
+    const sheetId = extractSheetId(input) || 'Google Sheet';
+    const ds = await buildDatasetFromRows(rows, sheetId);
+    if (!ds || !Array.isArray(ds.features) || !ds.features.length) {
+      throw new Error('Sheet did not produce any usable employee records. Check that it has Name, ZIP and other required columns.');
+    }
+    CURRENT_DATASET = ds;
+    FILTERS.position = '';
+    FILTERS.state = '';
+    document.getElementById('position-search').value = '';
+    document.getElementById('clear-search').style.display = 'none';
+    document.getElementById('state-select').value = '';
+    populateStateDropdown(CURRENT_DATASET);
+    rerenderAll({ fit: true });
+    gstatus.className = 'success';
+    gstatus.textContent = `Loaded ${ds.total_employees_plotted} employees across ${ds.unique_locations} ZIP locations.`;
+  } catch (err) {
+    console.error('Google Sheets load failed:', err);
+    gstatus.className = 'error';
+    gstatus.textContent = 'Load failed: ' + (err.message || String(err));
+  }
+});
+// Also allow pressing Enter in the URL field
+document.getElementById('gsheets-url').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') document.getElementById('gsheets-load-btn').click();
+});
 
 /* ============================================================
- * AUTOLOAD
+ * CORS PROXY FETCH
+ * Google Sheets export blocks direct cross-origin fetches.
+ * We try a chain of free CORS proxies; first success wins.
  * ============================================================ */
+const CORS_PROXIES = [
+  (url) => `https://corsproxy.io/?${encodeURIComponent(url)}`,
+  (url) => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+  (url) => `https://cors-anywhere.herokuapp.com/${url}`,
+];
+
+async function fetchWithCorsProxy(targetUrl, statusEl) {
+  for (let i = 0; i < CORS_PROXIES.length; i++) {
+    const proxyUrl = CORS_PROXIES[i](targetUrl);
+    try {
+      if (statusEl) {
+        statusEl.textContent = `Fetching sheet (attempt ${i + 1} of ${CORS_PROXIES.length})…`;
+      }
+      const res = await fetch(proxyUrl, { signal: AbortSignal.timeout(12000) });
+      if (res.ok) {
+        const text = await res.text();
+        // allorigins wraps in JSON sometimes — detect and unwrap
+        if (text.trim().startsWith('{"contents"')) {
+          try { return JSON.parse(text).contents; } catch (_) { /* fall through */ }
+        }
+        return text;
+      }
+      // 403 from proxy likely means the sheet isn't public; surface that clearly
+      if (res.status === 403 || res.status === 401) {
+        throw new Error(`Access denied (HTTP ${res.status}). Make sure the sheet is shared as "Anyone with the link can view".`);
+      }
+    } catch (err) {
+      if (err.message && (err.message.includes('Access denied') || err.message.includes('Make sure'))) throw err;
+      // Network / timeout — try next proxy
+      console.warn(`Proxy ${i + 1} failed:`, err.message || err);
+    }
+  }
+  throw new Error('All CORS proxies failed. The sheet may be private, or your network may be blocking requests. Try downloading the sheet as CSV and uploading it instead.');
+}
+
+/* ============================================================
+ * GOOGLE SHEETS URL HELPERS
+ * ============================================================ */
+function extractSheetId(url) {
+  const m = url.match(/\/spreadsheets\/d\/([a-zA-Z0-9_-]+)/);
+  return m ? m[1] : null;
+}
+function extractGid(url) {
+  const m = url.match(/[?&#]gid=(\d+)/);
+  return m ? m[1] : null;
+}
+function googleSheetsToCsvUrl(url) {
+  const id = extractSheetId(url);
+  if (!id) {
+    throw new Error('Could not find a Google Sheets ID in this URL. Copy the URL from your browser address bar while viewing the sheet.');
+  }
+  const gid = extractGid(url);
+  let csvUrl = `https://docs.google.com/spreadsheets/d/${id}/export?format=csv`;
+  if (gid) csvUrl += `&gid=${gid}`;
+  return csvUrl;
+}
+
+async function parseUploadedFile(file) {
+  const name = file.name.toLowerCase();
+  if (name.endsWith('.json')) {
+    const text = await file.text();
+    const json = JSON.parse(text);
+    // Accept either: full dataset shape, or a flat array of employee rows
+    if (json && Array.isArray(json.features)) {
+      // Already in target shape; just normalize counts/totals
+      const features = json.features.filter(f => typeof f.lat === 'number' && typeof f.lng === 'number');
+      features.forEach(f => { f.count = (f.employees || []).length; });
+      return {
+        generated_at: json.generated_at || new Date().toISOString().slice(0,10),
+        source: json.source || file.name,
+        total_employees_plotted: features.reduce((s,f) => s + f.count, 0),
+        unique_locations: features.length,
+        features,
+      };
+    }
+    if (Array.isArray(json)) {
+      return await buildDatasetFromRows(json, file.name);
+    }
+    throw new Error('JSON must be either a dataset object with "features" or an array of employee rows.');
+  }
+  // Spreadsheet (xlsx/xls/csv)
+  const buf = await file.arrayBuffer();
+  const wb = XLSX.read(buf, { type: 'array' });
+  const sheetName = wb.SheetNames[0];
+  if (!sheetName) throw new Error('Spreadsheet has no sheets.');
+  const sheet = wb.Sheets[sheetName];
+  const rows = XLSX.utils.sheet_to_json(sheet, { defval: '', raw: false });
+  if (!rows.length) throw new Error('Spreadsheet sheet "' + sheetName + '" is empty.');
+  return await buildDatasetFromRows(rows, file.name);
+}
+
+// Normalize an arbitrary spreadsheet row to our employee shape, with
+// header tolerance — match by lowercased, alphanumeric-only column names.
+function normalizeRow(row) {
+  const lower = {};
+  for (const k of Object.keys(row)) {
+    const key = String(k).toLowerCase().replace(/[^a-z0-9]/g, '');
+    lower[key] = row[k];
+  }
+  const pick = (...keys) => {
+    for (const k of keys) {
+      if (lower[k] != null && String(lower[k]).trim() !== '') return String(lower[k]).trim();
+    }
+    return '';
+  };
+  // Normalize ZIP: strip ZIP+4 ext, uppercase, no whitespace, left-pad short US codes.
+  let zip = pick('zip', 'zipcode', 'postalcode', 'postal').toUpperCase().replace(/\s+/g, '');
+  if (zip.includes('-')) {
+    const head = zip.split('-')[0];
+    if (/^\d+$/.test(head)) zip = head;
+  }
+  if (/^\d{1,4}$/.test(zip)) zip = zip.padStart(5, '0');
+  if (/^\d{6,}$/.test(zip)) zip = zip.slice(0, 5);
+  // Build name: prefer separate first+last columns; fall back to single 'name' column.
+  const firstName = pick('preferredorchosenfirstname', 'legalfirstname', 'firstname');
+  const lastName  = pick('preferredorchosenlastname',  'legallastname',  'lastname');
+  const combinedName = (firstName + ' ' + lastName).trim();
+  const singleName = pick('name', 'fullname', 'employeename', 'employee');
+  return {
+    name: combinedName || singleName,
+    title: pick('title', 'jobtitle', 'position', 'job'),
+    department: pick('department', 'dept', 'homedepartment'),
+    business_unit: pick('businessunit', 'bu'),
+    work_email: pick('workemail', 'email', 'emailaddress'),
+    location_code: pick('locationcode', 'location', 'office'),
+    city: pick('city', 'residencecity', 'hometowncity', 'primaryaddresscity'),
+    state: pick('state', 'residencestate', 'province', 'stateprovince',
+                'primaryaddressstateterritory').toUpperCase().slice(0,3),
+    zip,
+    hire_date: pick('hiredate', 'datehired', 'starteddate', 'start'),
+    position_status: pick('positionstatus', 'status', 'employmentstatus'),
+  };
+}
+
+async function buildDatasetFromRows(rawRows, sourceName) {
+  // Build a ZIP -> {lat, lng, city, state, country} lookup from the ORIGINAL
+  // dataset so we can place new employees without external API calls when
+  // their ZIP is already known.
+  const zipLookup = new Map();
+  for (const f of (ORIGINAL_DATASET.features || [])) {
+    if (!f.zip || typeof f.lat !== 'number' || typeof f.lng !== 'number') continue;
+    zipLookup.set(String(f.zip).toUpperCase().trim(),
+      { lat: f.lat, lng: f.lng, city: f.city, state: f.state, country: f.country });
+  }
+
+  // Normalize rows
+  const emps = rawRows.map(normalizeRow).filter(e => e.name || e.work_email);
+
+  // Group by ZIP
+  const byZip = new Map();
+  for (const e of emps) {
+    const zipKey = (e.zip || '').toUpperCase().trim();
+    if (!zipKey) continue;            // skip rows with no ZIP — we can't place them
+    if (!byZip.has(zipKey)) byZip.set(zipKey, []);
+    byZip.get(zipKey).push(e);
+  }
+  if (byZip.size === 0) {
+    throw new Error('No rows had a ZIP/Postal column. Add a "ZIP" column and try again.');
+  }
+
+  // Resolve coords: lookup first, then optional API for unknowns (US only)
+  const status = document.getElementById('upload-status');
+  const unknownZips = [];
+  for (const zip of byZip.keys()) {
+    if (!zipLookup.has(zip)) unknownZips.push(zip);
+  }
+  if (unknownZips.length) {
+    status.className = 'working';
+    status.textContent = `Looking up ${unknownZips.length} unknown ZIP${unknownZips.length === 1 ? '' : 's'}…`;
+    await Promise.all(unknownZips.map(async (zip) => {
+      const coords = await lookupZipCoords(zip);
+      if (coords) zipLookup.set(zip, coords);
+    }));
+  }
+
+  // Build features
+  const features = [];
+  let unplaced = 0;
+  for (const [zip, employees] of byZip.entries()) {
+    const coords = zipLookup.get(zip);
+    if (!coords) { unplaced += employees.length; continue; }
+    // Prefer the city/state from the row data if present; otherwise use lookup
+    const firstWithCity = employees.find(e => e.city) || {};
+    const firstWithState = employees.find(e => e.state) || {};
+    features.push({
+      lat: coords.lat,
+      lng: coords.lng,
+      zip,
+      country: coords.country || 'US',
+      city: firstWithCity.city || coords.city || '',
+      state: (firstWithState.state || coords.state || '').toUpperCase().slice(0,3),
+      count: employees.length,
+      employees,
+    });
+  }
+  features.sort((a, b) => b.count - a.count);
+  if (unplaced) {
+    console.warn(`${unplaced} employee(s) could not be placed (unknown ZIP).`);
+  }
+  return {
+    generated_at: new Date().toISOString().slice(0,10),
+    source: sourceName,
+    total_employees_plotted: features.reduce((s,f) => s + f.count, 0),
+    unique_locations: features.length,
+    features,
+  };
+}
+
+// Free, no-auth ZIP -> lat/lng for US + CA. Best-effort; returns null on failure.
+async function lookupZipCoords(zip) {
+  const z = String(zip).trim();
+  // Try US first (5-digit numeric)
+  if (/^\d{5}$/.test(z)) {
+    try {
+      const r = await fetch(`https://api.zippopotam.us/us/${z}`);
+      if (r.ok) {
+        const j = await r.json();
+        const p = j.places && j.places[0];
+        if (p) return {
+          lat: parseFloat(p.latitude), lng: parseFloat(p.longitude),
+          city: p['place name'], state: p['state abbreviation'], country: 'US',
+        };
+      }
+    } catch (e) { /* fall through */ }
+  }
+  // Try Canada (first 3 chars are forward sortation area)
+  if (/^[A-Za-z]\d[A-Za-z]/.test(z)) {
+    const fsa = z.slice(0,3).toUpperCase();
+    try {
+      const r = await fetch(`https://api.zippopotam.us/ca/${fsa}`);
+      if (r.ok) {
+        const j = await r.json();
+        const p = j.places && j.places[0];
+        if (p) return {
+          lat: parseFloat(p.latitude), lng: parseFloat(p.longitude),
+          city: p['place name'], state: p['state abbreviation'], country: 'CA',
+        };
+      }
+    } catch (e) { /* fall through */ }
+  }
+  return null;
+}
+
+/* ============================================================
+ * AUTOLOAD on page load — fetch live Google Sheet + start auto-refresh
+ * ============================================================ */
+      
 (async function autoload() {
+  // Show loading state — no embedded data to fall back on
   map.setView(FALLBACK_VIEW.center, FALLBACK_VIEW.zoom);
   document.getElementById('m-count').textContent = '…';
   document.getElementById('m-zips').textContent = '…';
   document.getElementById('m-src').textContent = 'Loading from Google Sheet…';
+  document.getElementById('m-updated').textContent = '—';
+  document.getElementById('state-details').innerHTML =
+    '<div class="empty">Loading employee data from Google Sheet…</div>';
 
   try {
-    const csvUrl = googleSheetsToCsvUrl(LIVE_SHEET_URL);
-    const csvText = await fetchWithCorsProxy(csvUrl);
-    const wb = XLSX.read(csvText, { type: 'string' });
-    const rows = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { defval: '', raw: false });
-
-    const ds = await buildDatasetFromRows(rows, 'Live Google Sheet');
+    const ds = await fetchLiveDataset();
     CURRENT_DATASET = ds;
     ORIGINAL_DATASET = JSON.parse(JSON.stringify(ds));
 
@@ -658,155 +1256,44 @@ const LIVE_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1Ms-YACL62WXQ2SD0
     document.getElementById('position-search').value = '';
     document.getElementById('clear-search').style.display = 'none';
     document.getElementById('state-select').value = '';
-
     populateStateDropdown(CURRENT_DATASET);
-    renderDataset(CURRENT_DATASET, { fit: true });
+    rerenderAll({ fit: true });
 
-    startAutoRefresh();   // ← starts the 5-minute live updates
+    updateLastUpdatedDisplay();
+    startAutoRefresh();
+
+    console.info('✅ Live Google Sheet loaded + auto-refresh (every 5 min) enabled');
   } catch (err) {
-    console.error(err);
-    const errEl = document.getElementById('err');
-    document.getElementById('err-msg').textContent = ' Could not load Google Sheet. Make sure it is shared as "Anyone with the link can view".';
-    errEl.hidden = false;
+    console.error('Live sheet load failed:', err.message || err);
+    document.getElementById('m-count').textContent = '—';
+    document.getElementById('m-zips').textContent = '—';
+    document.getElementById('m-src').textContent = 'Load failed';
+    document.getElementById('m-updated').textContent = '—';
+    showError('Could not load Google Sheet: ' + (err.message || err) +
+      ' — Make sure the sheet is shared as "Anyone with the link can view".');
   }
 })();
 
 /* ============================================================
- * UI EVENT LISTENERS
- * ============================================================ */
-document.getElementById('position-search').addEventListener('input', e => {
-  const v = e.target.value.trim();
-  document.getElementById('clear-search').style.display = v ? '' : 'none';
-  clearTimeout(window.searchTimer);
-  window.searchTimer = setTimeout(() => {
-    FILTERS.position = v;
-    renderDataset(CURRENT_DATASET, { fit: false });
-    renderStateDetails(FILTERS.state);
-  }, 250);
-});
-
-document.getElementById('clear-search').addEventListener('click', () => {
-  document.getElementById('position-search').value = '';
-  document.getElementById('clear-search').style.display = 'none';
-  FILTERS.position = '';
-  renderDataset(CURRENT_DATASET, { fit: false });
-  renderStateDetails(FILTERS.state);
-});
-
-document.getElementById('state-select').addEventListener('change', e => {
-  FILTERS.state = e.target.value;
-  renderDataset(CURRENT_DATASET, { fit: !!FILTERS.state });
-  renderStateDetails(FILTERS.state);
-});
-
-document.getElementById('upload-btn').addEventListener('click', () => document.getElementById('file-input').click());
-document.getElementById('file-input').addEventListener('change', async e => {
-  const file = e.target.files[0];
-  if (!file) return;
-  const status = document.getElementById('upload-status');
-  status.className = 'working';
-  status.textContent = `Reading ${file.name}…`;
-  status.style.display = 'block';
-  try {
-    const ds = await parseUploadedFile(file);
-    CURRENT_DATASET = ds;
-    FILTERS.position = ''; FILTERS.state = '';
-    document.getElementById('position-search').value = '';
-    document.getElementById('clear-search').style.display = 'none';
-    document.getElementById('state-select').value = '';
-    populateStateDropdown(CURRENT_DATASET);
-    renderDataset(CURRENT_DATASET, { fit: true });
-    status.className = 'success';
-    status.textContent = `Loaded ${ds.total_employees_plotted} employees`;
-  } catch (err) {
-    status.className = 'error';
-    status.textContent = err.message;
-  }
-  e.target.value = '';
-});
-
-document.getElementById('reset-data').addEventListener('click', async () => {
-  const btn = document.getElementById('reset-data');
-  btn.textContent = 'Loading…';
-  btn.disabled = true;
-  const status = document.getElementById('upload-status');
-  status.className = 'working';
-  status.textContent = 'Reloading from Google Sheet…';
-  status.style.display = 'block';
-  try {
-    const csvUrl = googleSheetsToCsvUrl(LIVE_SHEET_URL);
-    const csvText = await fetchWithCorsProxy(csvUrl);
-    const wb = XLSX.read(csvText, { type: 'string' });
-    const rows = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { defval: '', raw: false });
-    const ds = await buildDatasetFromRows(rows, 'Live Google Sheet');
-    CURRENT_DATASET = ds;
-    ORIGINAL_DATASET = JSON.parse(JSON.stringify(ds));
-    FILTERS.position = ''; FILTERS.state = '';
-    document.getElementById('position-search').value = '';
-    document.getElementById('clear-search').style.display = 'none';
-    document.getElementById('state-select').value = '';
-    populateStateDropdown(CURRENT_DATASET);
-    renderDataset(CURRENT_DATASET, { fit: true });
-    status.className = 'success';
-    status.textContent = `Reloaded ${ds.total_employees_plotted} employees`;
-  } catch (err) {
-    status.className = 'error';
-    status.textContent = 'Reload failed';
-  } finally {
-    btn.textContent = '↺ Reload Sheet';
-    btn.disabled = false;
-  }
-});
-
-document.getElementById('gsheets-load-btn').addEventListener('click', async () => {
-  const input = document.getElementById('gsheets-url').value.trim();
-  const gstatus = document.getElementById('gsheets-status');
-  if (!input) {
-    gstatus.className = 'error';
-    gstatus.textContent = 'Please paste a Google Sheets URL';
-    gstatus.style.display = 'block';
-    return;
-  }
-  gstatus.className = 'working';
-  gstatus.textContent = 'Fetching sheet…';
-  gstatus.style.display = 'block';
-  try {
-    const csvUrl = googleSheetsToCsvUrl(input);
-    const csvText = await fetchWithCorsProxy(csvUrl);
-    const wb = XLSX.read(csvText, { type: 'string' });
-    const rows = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { defval: '', raw: false });
-    const ds = await buildDatasetFromRows(rows, 'Custom Google Sheet');
-    CURRENT_DATASET = ds;
-    FILTERS.position = ''; FILTERS.state = '';
-    document.getElementById('position-search').value = '';
-    document.getElementById('clear-search').style.display = 'none';
-    document.getElementById('state-select').value = '';
-    populateStateDropdown(CURRENT_DATASET);
-    renderDataset(CURRENT_DATASET, { fit: true });
-    gstatus.className = 'success';
-    gstatus.textContent = `Loaded ${ds.total_employees_plotted} employees`;
-  } catch (err) {
-    gstatus.className = 'error';
-    gstatus.textContent = err.message;
-  }
-});
-
-/* ============================================================
- * LEGEND
+ * LEGEND CONTROL
  * ============================================================ */
 const legend = L.control({ position: 'bottomright' });
 legend.onAdd = function () {
   const el = L.DomUtil.create('div', 'legend');
-  el.innerHTML = `<h4>Marker size</h4>
+  el.innerHTML = `
+    <h4>Marker size</h4>
     <div class="row"><span class="dot" style="width:14px;height:14px"></span> 1 employee</div>
     <div class="row"><span class="dot" style="width:22px;height:22px"></span> ~10 employees</div>
     <div class="row"><span class="dot" style="width:32px;height:32px"></span> 50+ employees</div>
-    <div class="conf">ZIP-centroid · Confidential</div>`;
+    <div class="conf">ZIP-centroid · Confidential</div>
+  `;
   return el;
 };
 legend.addTo(map);
 
-/* Export controls (full original functionality) */
+/* ============================================================
+ * EXPORT CONTROL — top right
+ * ============================================================ */
 const ExportControl = L.Control.extend({
   options: { position: 'topright' },
   onAdd: function () {
@@ -824,74 +1311,199 @@ const ExportControl = L.Control.extend({
       </div>
     `;
     L.DomEvent.disableClickPropagation(wrap);
+    L.DomEvent.disableScrollPropagation(wrap);
     setTimeout(() => {
-      document.getElementById('export-toggle').addEventListener('click', e => {
+      document.getElementById('export-toggle').addEventListener('click', (e) => {
         e.preventDefault();
         document.getElementById('export-menu').classList.toggle('open');
       });
-      document.getElementById('export-menu').addEventListener('click', async e => {
-        const action = e.target.closest('button')?.dataset.action;
-        if (!action) return;
+      document.getElementById('export-menu').addEventListener('click', async (e) => {
+        const a = e.target.closest('button')?.dataset.action;
+        if (!a) return;
         document.getElementById('export-menu').classList.remove('open');
         const btn = e.target.closest('button');
-        const origText = btn.textContent;
-        btn.textContent = '…';
+        const orig = btn.textContent;
+        btn.textContent = '...working';
         try {
-          if (action === 'jpeg') await exportJpeg();
-          else if (action === 'html') await exportShareableHtml();
+          if (a === 'jpeg') await exportJpeg();
+          else if (a === 'html') await exportShareableHtml();
         } catch (err) {
-          alert('Export failed: ' + err.message);
+          console.error('Export failed:', err);
+          alert('Export failed: ' + (err.message || err));
         } finally {
-          btn.textContent = origText;
+          btn.textContent = orig;
         }
       });
     }, 0);
     return wrap;
-  }
+  },
 });
 map.addControl(new ExportControl());
 
-document.addEventListener('click', e => {
+// Click-away closes menu
+document.addEventListener('click', (e) => {
   const menu = document.getElementById('export-menu');
   const tog = document.getElementById('export-toggle');
-  if (menu && !menu.contains(e.target) && !tog.contains(e.target)) menu.classList.remove('open');
+  if (!menu) return;
+  if (menu.contains(e.target) || tog.contains(e.target)) return;
+  menu.classList.remove('open');
 });
 
-/* JPEG export */
+/* ----- JPEG export ----- */
 async function exportJpeg() {
+  // Make sure tiles in view have loaded before snapshot
+  await waitForTiles();
   const node = document.getElementById('map');
+  // Add a temporary watermark element so it shows in the snapshot
   const wm = document.createElement('div');
-  wm.textContent = 'Confidential · ' + CURRENT_DATASET.generated_at;
-  Object.assign(wm.style, { position: 'absolute', left: '8px', bottom: '6px', zIndex: '1200', background: 'rgba(255,255,255,0.85)', color: '#5a564f', font: '500 10px Inter, system-ui, sans-serif', padding: '4px 8px', borderRadius: '3px', border: '1px solid #e3dfd6' });
+  wm.textContent = 'Confidential · ZIP-aggregated · ' + CURRENT_DATASET.generated_at;
+  Object.assign(wm.style, {
+    position: 'absolute', left: '8px', bottom: '6px', zIndex: '1200',
+    background: 'rgba(255,255,255,0.85)', color: '#5a564f',
+    font: '500 10px Inter, system-ui, sans-serif',
+    letterSpacing: '0.04em', textTransform: 'uppercase',
+    padding: '4px 8px', borderRadius: '3px',
+    border: '1px solid #e3dfd6',
+  });
   node.style.position = 'relative';
   node.appendChild(wm);
+  let dataUrl;
   try {
-    const dataUrl = await htmlToImage.toJpeg(node, { quality: 0.92, backgroundColor: '#e8e4dc', pixelRatio: window.devicePixelRatio || 1 });
-    const blob = await (await fetch(dataUrl)).blob();
-    downloadBlob(blob, `map_${ts()}.jpg`);
+    dataUrl = await htmlToImage.toJpeg(node, {
+      quality: 0.92,
+      backgroundColor: '#e8e4dc',
+      // cacheBust: false — re-using browser-cached tiles is faster and avoids
+      // hitting tile-provider rate limits at export time.
+      pixelRatio: window.devicePixelRatio || 1,
+    });
   } finally {
     node.removeChild(wm);
   }
+  const blob = await (await fetch(dataUrl)).blob();
+  downloadBlob(blob, `map_${ts()}.jpg`);
+}
+function waitForTiles(timeout = 4000) {
+  return new Promise((resolve) => {
+    const tiles = document.querySelectorAll('.leaflet-tile');
+    if (!tiles.length) return resolve();
+    let pending = 0;
+    tiles.forEach(t => { if (!t.complete) pending++; });
+    if (pending === 0) return resolve();
+    let resolved = false;
+    const done = () => { if (!resolved) { resolved = true; resolve(); } };
+    const onload = () => { pending--; if (pending <= 0) done(); };
+    tiles.forEach(t => { if (!t.complete) t.addEventListener('load', onload, { once: true }); });
+    setTimeout(done, timeout);
+  });
 }
 
-/* Shareable HTML export */
+/* ----- Shareable HTML export ----- */
 async function exportShareableHtml() {
   const center = map.getCenter();
   const zoom = map.getZoom();
+  // Export the CURRENT (filtered) view so the snapshot matches what the user sees.
   const filteredFeatures = getFilteredFeatures(CURRENT_DATASET);
   const exportDs = {
     generated_at: CURRENT_DATASET.generated_at,
     source: CURRENT_DATASET.source,
     total_employees_plotted: filteredFeatures.reduce((s, f) => s + f.count, 0),
     unique_locations: filteredFeatures.length,
-    features: filteredFeatures
+    features: filteredFeatures,
   };
-  const baked = { dataset: exportDs, view: { lat: center.lat, lng: center.lng, zoom } };
-  const html = `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Workforce Map Snapshot</title><style>/* (full embedded styles) */</style></head><body><script>/* full embedded Leaflet map code with baked data */</script></body></html>`;
-  // (The full self-contained export HTML is generated the same way as in the original file)
+  const baked = {
+    dataset: exportDs,
+    view: { lat: center.lat, lng: center.lng, zoom },
+  };
+  // Inline Leaflet so the export is self-contained for libraries.
+  // Tiles still require network when the export is later opened.
+  const cssBlock = leafletCssText
+    ? `<style>${leafletCssText}</style>`
+    : `<link rel="stylesheet" href="${LEAFLET_CSS_URL}">`;
+  const jsBlock = leafletJsText
+    ? `<script>${leafletJsText}<\/script>`
+    : `<script src="${LEAFLET_JS_URL}"><\/script>`;
+  const html = buildExportHtml(cssBlock, jsBlock, baked);
   const blob = new Blob([html], { type: 'text/html' });
   downloadBlob(blob, `workforce_map_${ts()}.html`);
 }
+function buildExportHtml(cssBlock, jsBlock, baked) {
+  // Self-contained, double-click-openable. Same renderer as this artifact,
+  // but with center/zoom restored from the export-time view.
+  const bakedJson = JSON.stringify(baked).replaceAll('</', '<\\/');
+  return `<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Workforce Map (Snapshot)</title>
+${cssBlock}
+<style>
+  :root { --bg:#f7f6f3;--ink:#161614;--ink-soft:#5a564f;--line:#e3dfd6;--accent:#e8540b;--accent-soft:#fce6d6;--shadow:0 1px 2px rgba(20,16,10,.06),0 8px 24px rgba(20,16,10,.08); font-family:system-ui,-apple-system,sans-serif; }
+  *{box-sizing:border-box}html,body{height:100%;margin:0}
+  body{display:flex;flex-direction:column;background:var(--bg);color:var(--ink);font-size:14px}
+  header{flex:none;display:flex;align-items:center;gap:16px;padding:10px 16px;background:#fff;border-bottom:1px solid var(--line);z-index:1000}
+  header h1{margin:0;font-size:13px;font-weight:600}
+  header .meta{display:flex;gap:14px;font-size:11px;color:var(--ink-soft)}
+  header .meta strong{color:var(--ink);font-weight:600}
+  header .conf{margin-left:auto;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:600}
+  #map{flex:1;min-height:0;background:#e8e4dc}
+  .leaflet-popup-content{margin:0;min-width:280px;max-width:340px}
+  .pop-head{padding:10px 14px 8px;border-bottom:1px solid var(--line)}
+  .pop-head .where{font-size:13px;font-weight:600}
+  .pop-head .sub{font-size:11px;color:var(--ink-soft);margin-top:2px}
+  .pop-list{max-height:240px;overflow-y:auto;padding:4px 0}
+  .emp{padding:8px 14px;border-bottom:1px solid var(--line)}.emp:last-child{border-bottom:none}
+  .emp .nm{font-weight:600;font-size:13px}.emp .role{font-size:12px;color:var(--ink-soft);margin-top:1px}
+  .emp .det{font-size:11px;color:var(--ink-soft);margin-top:4px;display:flex;flex-wrap:wrap;gap:4px 10px}
+  .emp .det a{color:var(--ink-soft);text-decoration:none}.emp .det a:hover{color:var(--accent)}
+  .pop-foot{padding:6px 14px;font-size:10px;color:var(--ink-soft);border-top:1px solid var(--line);background:#fafaf8;text-transform:uppercase;letter-spacing:.04em}
+  .zip-marker{background:var(--accent);color:#fff;border-radius:999px;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:11px}
+  .legend{background:#fff;padding:10px 12px;border-radius:4px;box-shadow:var(--shadow);font-size:11px;border:1px solid var(--line)}
+  .legend h4{margin:0 0 6px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft)}
+  .legend .row{display:flex;align-items:center;gap:8px}
+  .legend .dot{background:var(--accent);border:2px solid #fff;border-radius:999px;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+  .legend .conf{margin-top:8px;padding-top:6px;border-top:1px solid var(--line);font-size:10px;color:var(--accent);text-transform:uppercase;letter-spacing:.04em}
+</style></head><body>
+<header>
+  <h1>Workforce Map · Snapshot</h1>
+  <div class="meta">
+    <span><strong>${baked.dataset.total_employees_plotted}</strong> employees</span>
+    <span><strong>${baked.dataset.unique_locations}</strong> ZIP locations</span>
+    <span>Source: <strong>${baked.dataset.source}</strong></span>
+  </div>
+  <span class="conf">Confidential · Aggregated</span>
+</header>
+<div id="map"></div>
+${jsBlock}
+<script>
+  const BAKED = ${bakedJson};
+  function escapeHtml(s){if(s==null)return '';return String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;');}
+  function markerSize(c){return Math.round(20+Math.log2(c+1)*4)}
+  const map=L.map('map');
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',{maxZoom:19,subdomains:'abcd',attribution:'&copy; OpenStreetMap contributors &copy; CARTO'}).addTo(map);
+  map.setView([BAKED.view.lat, BAKED.view.lng], BAKED.view.zoom);
+  const grp=L.featureGroup();
+  for(const f of BAKED.dataset.features){
+    if(typeof f.lat!=='number'||typeof f.lng!=='number')continue;
+    const sz=markerSize(f.count);
+    const icon=L.divIcon({className:'',html:'<div class="zip-marker" style="width:'+sz+'px;height:'+sz+'px">'+f.count+'</div>',iconSize:[sz,sz],iconAnchor:[sz/2,sz/2]});
+    const list=f.employees.map(e=>{
+      const det=[];
+      if(e.location_code)det.push('Office: '+escapeHtml(e.location_code));
+      if(e.hire_date)det.push('Hired: '+escapeHtml(e.hire_date));
+      if(e.work_email)det.push('<a href="mailto:'+escapeHtml(e.work_email)+'">'+escapeHtml(e.work_email)+'</a>');
+      return '<div class="emp"><div class="nm">'+(escapeHtml(e.name)||'—')+'</div>'+(e.title?'<div class="role">'+escapeHtml(e.title)+'</div>':'')+(e.department?'<div class="role">'+escapeHtml(e.department)+'</div>':'')+'<div class="det">'+det.join(' · ')+'</div></div>';
+    }).join('');
+    const html='<div class="pop"><div class="pop-head"><div class="where">'+escapeHtml(f.city||'—')+', '+escapeHtml(f.state||'')+'</div><div class="sub">ZIP '+escapeHtml(f.zip)+' · '+f.count+' employee'+(f.count===1?'':'s')+'</div></div><div class="pop-list">'+list+'</div><div class="pop-foot">Aggregated to ZIP centroid · No PII shown</div></div>';
+    L.marker([f.lat,f.lng],{icon}).bindPopup(html,{maxWidth:360}).addTo(grp);
+  }
+  grp.addTo(map);
+  const lg=L.control({position:'bottomright'});
+  lg.onAdd=function(){const el=L.DomUtil.create('div','legend');el.innerHTML='<h4>Marker size</h4><div class="row"><span class="dot" style="width:14px;height:14px"></span> 1 employee</div><div class="row"><span class="dot" style="width:22px;height:22px"></span> ~10 employees</div><div class="row"><span class="dot" style="width:32px;height:32px"></span> 50+ employees</div><div class="conf">ZIP-centroid · Confidential</div>';return el;};
+  lg.addTo(map);
+<\/script>
+</body></html>`;
+}
 </script>
+
 </body>
 </html>
+```,255
