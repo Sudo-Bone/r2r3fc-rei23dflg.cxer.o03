@@ -989,9 +989,8 @@ document.getElementById('gsheets-url').addEventListener('keydown', (e) => {
  * We try a chain of free CORS proxies; first success wins.
  * ============================================================ */
 const CORS_PROXIES = [
-  (url) => `https://corsproxy.io/?${encodeURIComponent(url)}`,
-  (url) => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
-  (url) => `https://cors-anywhere.herokuapp.com/${url}`,
+// ← YOUR PRIVATE PROXY (best)
+(url) => `https://crimson-boat-core.tmichael0814.workers.dev/?url=${encodeURIComponent(url)}`,
 ];
 
 async function fetchWithCorsProxy(targetUrl, statusEl) {
