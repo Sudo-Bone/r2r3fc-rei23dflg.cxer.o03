@@ -412,7 +412,7 @@
         <button class="btn btn-ghost" id="reset-data" title="Reload from Google Sheet">↺ Reload Sheet</button>
       </div>
       <input type="file" id="file-input" accept=".xlsx,.xls,.csv,.json">
-      <div class="hint">Accepts <strong>.xlsx</strong>, <strong>.csv</strong>, or <strong>.json</strong>. For spreadsheets, columns needed: Name, Title, City, State, ZIP, Hire Date. Optional: Position Status.</div>
+      <div class="hint">Accepts <strong>.xlsx</strong>, <strong>.csv</strong>, or <strong>.json</strong>. For spreadsheets, columns needed: Name, Title, City, State, Primary Address - Zip Code, Hire Date. Optional: Position Status.</div>
       <div id="upload-status"></div>
     </div>
 
@@ -773,7 +773,7 @@ async function fetchLiveDataset() {
 
   const ds = await buildDatasetFromRows(rows, 'Live Google Sheet');
   if (!ds || !Array.isArray(ds.features) || !ds.features.length) {
-    throw new Error('Sheet produced no plottable records. Check that it has Name and ZIP columns.');
+    throw new Error('Sheet produced no plottable records. Check that it has Name and PRIMARY ADDRESS - ZIP CODE columns.');
   }
   return ds;
 }
